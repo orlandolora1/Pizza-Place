@@ -1,0 +1,16 @@
+﻿@page "/RPizza"
+@using Pizza_Place.Models
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+@code {
+    private Estado estado { get; } = new Estado();
+    protected override void OnInitialized()
+    {
+        estado.PizzaBLL.Agregar(new Pizza(1, "Pepperoni", 8.99M, Picante.Picante ));
+        estado.PizzaBLL.Agregar(new Pizza(2, "Margarita", 7.99M, Picante.Nada));
+        estado.PizzaBLL.Agregar(new Pizza(3, "Diabolo", 9.99M, Picante.Caliente));
+    }
+}

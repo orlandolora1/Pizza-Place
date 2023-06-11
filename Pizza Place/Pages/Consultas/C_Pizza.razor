@@ -1,0 +1,50 @@
+﻿@page "/C_Pizza"
+@using Pizza_Place.Models
+
+
+<!-- MENU -->
+
+<h1>Seleccion de nuestras pizzas</h1>
+
+@foreach (var pizza in estado.PizzaBLL.Pizza)
+{
+    <div class="row">
+        <div class="col">
+            @pizza.Nombre
+        </div>
+        <div class="col text-right">
+            @($"{pizza.Precio:0.00}")
+        </div>
+        <div class="col"></div>
+        <div class="col">
+            <img width="50" height="50" src="https://st3.depositphotos.com/5144205/32846/v/600/depositphotos_328466110-stock-illustration-two-kinds-of-hot-peppers.jpg"
+                alt="@pizza.Picante" />            
+        </div>
+        <div class="col">
+            <button class="btn btn-success pl-4 pr-4"
+                @onclick="@(() => compra.Agregar(pizza.PizzaId))">
+            Agregar
+            </button>
+        </div>
+    </div>
+     
+}
+
+<!-- End Menu -->
+
+@code
+{
+    private Estado estado { get; set; } = new Estado();
+    private Compra compra { get; set; } = new Compra();
+
+    protected override void OnInitialized()
+    {
+        estado.PizzaBLL.Agregar(new Pizza(1, "Pepperoni", 8.99M, Picante.Picante));
+        estado.PizzaBLL.Agregar(new Pizza(2, "Margarita", 7.99M, Picante.Nada));
+        estado.PizzaBLL.Agregar(new Pizza(3, "Diabolo", 9.99M, Picante.Caliente));
+    }
+
+    private string SpicinessImage(Picante picantes) 
+        => $"images/{picantes.ToString().ToLower()}.png";
+    
+}
